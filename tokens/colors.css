@@ -1,0 +1,54 @@
+/* Color tokens — nn27.com
+   Warm neutral base + a single desaturated forest-green accent,
+   sampled from Nobu's reference swatch (assets/forest-green-walnut.jpg). */
+
+:root {
+  /* ---- Warm neutral scale (base) ---- */
+  /* Slight warm hue (~80deg), kept under 0.01 chroma so whites/blacks read as
+     "warm" without tinting visibly. */
+  --neutral-0:   oklch(95% 0.008 130);   /* page background */
+  --neutral-50:  oklch(93% 0.008 130);
+  --neutral-100: oklch(94% 0.006 80);
+  --neutral-200: oklch(89% 0.007 80);
+  --neutral-300: oklch(80% 0.008 80);
+  --neutral-400: oklch(68% 0.009 80);
+  --neutral-500: oklch(55% 0.010 80);
+  --neutral-600: oklch(42% 0.010 80);
+  --neutral-700: oklch(32% 0.009 80);
+  --neutral-800: oklch(22% 0.008 80);
+  --neutral-900: oklch(15% 0.006 80);   /* near-black text */
+
+  /* ---- Blue accent ---- */
+  /* Base tone matches Nobu's latest reference swatch: a clear mid-tone blue (~rgb(25,121,171)). */
+  --green-50:  oklch(96% 0.020 235);
+  --green-100: oklch(90% 0.040 235);
+  --green-200: oklch(82% 0.065 235);
+  --green-300: oklch(74% 0.090 235);
+  --green-400: oklch(66% 0.110 235);
+  --green-500: oklch(59% 0.125 235);
+  --green-600: oklch(55% 0.130 235);
+  --green-700: oklch(52% 0.130 235);   /* closest match to sampled swatch */
+  --green-800: oklch(40% 0.120 235);
+  --green-900: oklch(28% 0.090 235);
+
+  /* ---- Semantic aliases ---- */
+  --bg-page:        var(--neutral-0);
+  --bg-surface:     var(--neutral-50);
+  --bg-surface-2:   var(--neutral-100);
+  --border-subtle:  var(--neutral-200);
+  --border-default: var(--neutral-300);
+
+  --text-primary:   var(--neutral-900);
+  --text-secondary: var(--neutral-600);
+  --text-tertiary:  var(--neutral-400);
+  --text-on-accent: var(--neutral-0);
+
+  --accent:         var(--green-600);
+  --accent-hover:   var(--green-700);
+  --accent-active:  var(--green-800);
+  --accent-subtle:  var(--green-50);
+  --accent-border:  var(--green-300);
+
+  --link:           var(--green-700);
+  --link-hover:     var(--green-800);
+}
