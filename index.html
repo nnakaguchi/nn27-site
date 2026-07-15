@@ -68,11 +68,20 @@
 
   html, body { margin: 0; background: var(--page-bg); }
   body { font-family: var(--font-serif); letter-spacing: -0.18px; }
-  a { color: var(--page-fg); }
+  a { color: var(--page-fg); transition: color 0.2s ease; }
   a:hover { color: var(--neutral-100); }
-  a:focus-visible, button:focus-visible { outline: 2px solid var(--page-fg); outline-offset: 3px; border-radius: 2px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--page-fg); outline-offset: 3px; border-radius: 2px; transition: outline-color 0.2s ease; }
 
-  .underline-hover:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+  /* Underline fades in/out via text-decoration-color rather than toggling
+     text-decoration-line, since the line itself can't be transitioned smoothly. */
+  .underline-hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s ease;
+  }
+  .underline-hover:hover { text-decoration-color: currentColor; }
 
   /* Left column: fixed in place, does not scroll with the page. Sizing uses
      vh-based clamps so total content height always fits inside 100vh —
@@ -96,16 +105,29 @@
   }
 
   .left-col-swap { display: grid; }
-  .left-col-default, .left-col-preview { grid-column: 1; grid-row: 1; }
-  .left-col-preview { display: none; }
+  .left-col-default, .left-col-preview {
+    grid-column: 1;
+    grid-row: 1;
+    display: block;
+    opacity: 1;
+    transition: opacity 0.3s ease, display 0.3s allow-discrete;
+  }
+  .left-col-preview { display: none; opacity: 0; pointer-events: none; }
   .left-col-preview img, .left-col-preview video { width: 100%; height: auto; border-radius: var(--radius-md); display: block; }
   .left-col-preview .preview-gallery { display: flex; flex-direction: column; gap: clamp(8px, 2vh, 16px); max-height: 100vh; overflow: hidden; }
   .left-col-preview .preview-gallery.row { flex-direction: row; }
   .left-col-preview .preview-gallery.row img { width: 0; flex: 1; }
   .left-col-preview .preview-gallery img { width: 100%; height: auto; border-radius: var(--radius-md); display: block; }
   .left-col-preview .preview-caption { font: 300 clamp(0.9rem, 0.5rem + 1.4vh, 1.15rem) / 1.5 var(--font-serif); color: var(--page-fg); margin-top: clamp(8px, 2vh, 16px); display: none; }
-  .left-col.showing-preview .left-col-default { display: none; }
-  .left-col.showing-preview .left-col-preview { display: block; }
+  .left-col.showing-preview .left-col-default { display: none; opacity: 0; pointer-events: none; }
+  .left-col.showing-preview .left-col-preview { display: block; opacity: 1; pointer-events: auto; }
+
+  @starting-style {
+    .left-col.showing-preview .left-col-preview { opacity: 0; }
+  }
+  @starting-style {
+    .left-col:not(.showing-preview) .left-col-default { opacity: 0; }
+  }
 
   .blurb {
     font: 300 clamp(1.1rem, 0.6rem + 2.2vh, 2rem) / 1.35 var(--font-serif);
@@ -137,8 +159,16 @@
     padding: 22px 0;
     border-bottom: 1px solid var(--page-fg);
   }
-  .proj-row .title { font: 300 clamp(1.25rem, 1.1rem + 0.5vw, 1.6rem) / 1.3 var(--font-serif); color: var(--page-fg); text-decoration: none; }
-  .proj-row .title.underline-hover:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+  .proj-row .title {
+    font: 300 clamp(1.25rem, 1.1rem + 0.5vw, 1.6rem) / 1.3 var(--font-serif);
+    color: var(--page-fg);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s ease;
+  }
+  .proj-row .title.underline-hover:hover { text-decoration-color: currentColor; }
   .proj-row .arrow { font-size: 0.8em; margin-left: 10px; }
   .icon { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125em; fill: currentColor; }
   .proj-row .year { font: 300 0.95rem / 1.5 var(--font-serif); color: var(--page-fg); font-variant-numeric: oldstyle-nums; white-space: nowrap; }
@@ -185,7 +215,7 @@
     .left-col { position: static; height: auto; width: auto; justify-content: flex-start; padding: var(--page-pad) var(--page-pad) 48px; }
     .col-right { margin-left: 0; width: auto; padding: 0 var(--page-pad) 96px; }
     .proj-row .arrow { display: none; }
-    .proj-row .title.underline-hover:hover { text-decoration: none; }
+    .proj-row .title.underline-hover:hover { text-decoration-color: transparent; }
   }
 </style>
 </head>
