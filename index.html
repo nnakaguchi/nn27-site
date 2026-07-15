@@ -81,7 +81,7 @@
     text-decoration-color: transparent;
     transition: text-decoration-color 0.2s ease;
   }
-  .underline-hover:hover { text-decoration-color: currentColor; }
+  .underline-hover:hover { text-decoration-line: underline; text-decoration-color: currentColor; }
 
   /* Left column: fixed in place, does not scroll with the page. Sizing uses
      vh-based clamps so total content height always fits inside 100vh —
@@ -104,15 +104,17 @@
     margin: 0 0 clamp(16px, 5vh, 80px);
   }
 
-  .left-col-swap { display: grid; }
+  /* .left-col-preview is positioned absolutely so it overlays the default
+     content without contributing to .left-col-swap's height — otherwise the
+     grid/flow height would flex to fit whichever panel is briefly taller
+     during the crossfade, causing the bio block to jump when it settles. */
+  .left-col-swap { position: relative; }
   .left-col-default, .left-col-preview {
-    grid-column: 1;
-    grid-row: 1;
     display: block;
     opacity: 1;
     transition: opacity 0.3s ease, display 0.3s allow-discrete;
   }
-  .left-col-preview { display: none; opacity: 0; pointer-events: none; }
+  .left-col-preview { position: absolute; top: 0; left: 0; width: 100%; display: none; opacity: 0; pointer-events: none; }
   .left-col-preview img, .left-col-preview video { width: 100%; height: auto; border-radius: var(--radius-md); display: block; }
   .left-col-preview .preview-gallery { display: flex; flex-direction: column; gap: clamp(8px, 2vh, 16px); max-height: 100vh; overflow: hidden; }
   .left-col-preview .preview-gallery.row { flex-direction: row; }
