@@ -5,7 +5,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nobu Nakaguchi — nn27.com</title>
+<title>Nobu Nakaguchi — Chief Design Officer at Zola</title>
+<meta name="description" content="Nobu Nakaguchi is Chief Design Officer and co-founder of Zola, based in NYC. A portfolio of two decades of UX and product design work, 1999–present.">
+<link rel="canonical" href="https://nn27.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="nn27.com">
+<meta property="og:title" content="Nobu Nakaguchi — Chief Design Officer at Zola">
+<meta property="og:description" content="Nobu Nakaguchi is Chief Design Officer and co-founder of Zola, based in NYC. A portfolio of two decades of UX and product design work, 1999–present.">
+<meta property="og:url" content="https://nn27.com/">
+<meta property="og:image" content="https://nn27.com/assets/og-image.jpg">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nobu Nakaguchi — Chief Design Officer at Zola">
+<meta name="twitter:description" content="Nobu Nakaguchi is Chief Design Officer and co-founder of Zola, based in NYC. A portfolio of two decades of UX and product design work, 1999–present.">
+<meta name="twitter:image" content="https://nn27.com/assets/og-image.jpg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Nobu Nakaguchi",
+  "url": "https://nn27.com/",
+  "jobTitle": "Chief Design Officer",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Zola",
+    "url": "https://www.zola.com/"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "New York",
+    "addressRegion": "NY",
+    "addressCountry": "US"
+  },
+  "email": "mailto:nnakaguchi@gmail.com",
+  "sameAs": [
+    "https://linkedin.com/in/nnakaguchi",
+    "https://instagram.com/nnakaguchi"
+  ]
+}
+</script>
+
 <link rel="stylesheet" href="../../styles.css">
 <style>
   * { box-sizing: border-box; }
@@ -228,7 +269,7 @@
         previewCaption.style.display = "none";
         if (row.dataset.gallery) {
           const imgs = JSON.parse(row.dataset.gallery);
-          previewGallery.innerHTML = imgs.map(src => `<img src="${src}" alt="">`).join("");
+          previewGallery.innerHTML = imgs.map((src, i) => `<img src="${src}" alt="${row.dataset.title} — screenshot ${i + 1}">`).join("");
           previewGallery.className = "preview-gallery" + (row.dataset.galleryLayout ? " " + row.dataset.galleryLayout : "");
           previewGallery.style.display = "flex";
         } else {
@@ -240,6 +281,7 @@
           } else {
             preview.style.display = "block";
             preview.src = src;
+            preview.alt = `${row.dataset.title} — screenshot`;
           }
         }
         if (row.dataset.caption) {
@@ -276,7 +318,7 @@
       detailTitle.textContent = row.dataset.title;
       if (row.dataset.gallery) {
         const imgs = JSON.parse(row.dataset.gallery);
-        detailGallery.innerHTML = imgs.map(src => `<img src="${src}" alt="">`).join("");
+        detailGallery.innerHTML = imgs.map((src, i) => `<img src="${src}" alt="${row.dataset.title} — screenshot ${i + 1}">`).join("");
         detailGallery.className = "preview-gallery" + (row.dataset.galleryLayout ? " " + row.dataset.galleryLayout : "");
         detailGallery.style.display = "flex";
       } else {
@@ -288,6 +330,7 @@
         } else {
           detailImg.style.display = "block";
           detailImg.src = src;
+          detailImg.alt = `${row.dataset.title} — screenshot`;
         }
       }
       if (row.dataset.caption) {
